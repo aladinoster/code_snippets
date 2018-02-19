@@ -1,5 +1,6 @@
 # Decorators examples
 
+
 def decorator_function(original_function):
     def wrapper_function(*args, **kwargs):
         print('This wrapper was executed before:  {}'.format(original_function.__name__))
@@ -71,11 +72,39 @@ import time
 
 # Important: the following decorator is equivalent to display_nombre = my_logger(my_timer(display_nombre))
 
+
 @my_logger
 @my_timer
 def display_nombre(nombre, apellido):
     time.sleep(1)
     print('Yo me llamo {} {}'.format(nombre, apellido))
 
+
 display_nombre('Andres', 'Ladino')
 display_info('Andres', 31)
+
+
+# Another decorator
+
+class EnterExitParam(object):
+
+    def __init__(self, p1):
+        self.p1 = p1
+
+    def __call__(self, f):
+        def new_f():
+            print("Entering", f.__name__)
+            print("p1 =", self.p1)
+            f()
+            print("Leaving", f.__name__)
+        return new_f
+
+
+@EnterExitParam("foo bar")
+def hello():
+    print("Hello")
+
+
+if __name__ == "__main__":
+    # hello()
+    print('End')
