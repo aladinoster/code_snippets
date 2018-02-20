@@ -12,12 +12,14 @@ def plot_curves(data: object)-> object:
     xadd, yadd = [], []
     x_data = data.index.values
     y_data = data[:]
+    n_veh = data.num_columns
     # bc, = plt.plot(data, '-', color=[0, 0, 1, 0.1], animated=True)
-    bc, = data.plot(color=['b'] * data.num_columns,
+    bc, = data.plot(color=['b'] * n_veh,
                     alpha=0.3, animated=True)
     ln = []
     for i in data:
-        l, = plt.plot([], [], '-', lw=2, animated=True)
+        l, = plt.plot(data.index.values, data[i], '-',
+                      lw=2, animated=True)
         ln.append(l)
 
     def init():
@@ -27,13 +29,13 @@ def plot_curves(data: object)-> object:
 
     def update(frame):
         bc.set_data(x_data, data[:])
-        x_add = [[]] * data.num_columns
-        y_add = [[]] * data.num_columns
+        x_add = [[]] * n_veh
+        y_add = [[]] * n_veh
         for i in data:
             xadd[i].append(x_data[frame])
             yadd[i].append(y_data[frame])
             ln[i].set_data(x_add[i], y_add[i])
-        return ln, bc
+        return ((ln), bc)
 
     steps = range(len(x_data))
 
