@@ -11,8 +11,8 @@ def plot_curves(x_data, y_data):
     fig, ax = plt.subplots()
     xadd, yadd = [], []
 
-    bc, = plt.plot(x_data, y_data, '-', color=[0, 0, 1, 0.1], animated=True)
-    ln, = plt.plot([], [], '-', lw=0.5, animated=True)
+    bc, = ax.plot(x_data, y_data, '-', color=[0, 0, 1, 0.1], animated=True)
+    ln, = ax.plot([], [], '-', lw=0.5, animated=True)
 
     def init():
         ax.set_xlim(0, max(x_data))
@@ -53,6 +53,7 @@ def main():
     # x_data = np.linspace(0, 2 * np.pi, 128)
     # y_data = np.sin(x_data)
     plot_curves(x_data, y_data)
+    plot_curves(x_data, [i - 3 for i in y_data])
 
 
 if __name__ == "__main__":
