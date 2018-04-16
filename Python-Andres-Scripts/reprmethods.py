@@ -11,3 +11,5 @@ class Car:
 
 if __name__ == '__main__':
     my_car = Car('red', 2)
+    print(my_car)
+    repr(my_car) # only visible in console for development
